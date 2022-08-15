@@ -1,9 +1,16 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	kafka_handler "project/kafka-handler"
 )
 
 func main() {
-	fmt.Println("Test Program")
+	// create a new context
+	ctx := context.Background()
+	// produce messages in a new go routine, since
+	// both the produce and consume functions are
+	// blocking
+	go kafka_handler.Produce(ctx)
+	kafka_handler.Consumer(ctx)
 }
